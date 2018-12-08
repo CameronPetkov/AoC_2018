@@ -6,6 +6,6 @@
 
 
 
-int getDay1Part1Ans(void);
+int getDay1Ans( void );
 
 #endif

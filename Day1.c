@@ -12,16 +12,9 @@
 
 
 
-int getDay1Part1Ans()
+
+int getDay1Ans()
 {
-    int sum = readFile("input.txt");
+    int sum = readFile( "input.txt" );
     return sum;
-}
-
-
-
-
-int getDay1Part2Ans()
-{
-
 }

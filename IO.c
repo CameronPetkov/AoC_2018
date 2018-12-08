@@ -39,6 +39,11 @@ int readFile( char fileName[] )
 
     }
 
+    if ( !success )
+    {
+        fprintf( stderr, "Errors present while reading file. \n" );
+    }
+
     return sum;
 }
 
@@ -47,21 +52,17 @@ int readFile( char fileName[] )
 
 int sumFreq( FILE *f, bool *success )
 {
-    static int sum = 0;
+    int sum = 0;
 
     char line[LINE_SIZE];
     while ( ( fgets( line, LINE_SIZE, f ) != NULL ) && success )
     {
-        printf( "%s", line );
         char operation = line[0];
-        //printf( "%c\n", operation );
 
         char *freqString = line + 1;
-        printf( "%s", freqString );
-
         char *ptr;
         int freqShift = strtol( freqString, &ptr, 10 );
-        printf( "%d\n\n", freqShift );
+
         if ( operation == '-' )
         {
             sum -= freqShift;

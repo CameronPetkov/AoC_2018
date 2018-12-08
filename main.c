@@ -6,7 +6,7 @@
 
 int main()
 {
-    int ans = getDay1Part1Ans();
-    printf("%d", ans);
+    int ans = getDay1Ans();
+    printf( "Q1 Part1: %d", ans );
     return 0;
 }

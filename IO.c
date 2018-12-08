@@ -55,11 +55,12 @@ int sumFreq( FILE *f, bool *success )
     int sum = 0;
 
     char line[LINE_SIZE];
-    TreeNode *root = createNode( 0 );
+    TreeNode *root = ( TreeNode * ) malloc( sizeof( TreeNode ) );
+    createNode( &root, 0 );
     bool found = false;
     while ( !found )
     {
-        while ( ( fgets( line, LINE_SIZE, f ) != NULL ) && success )
+        while ( ( fgets( line, LINE_SIZE, f ) != NULL ) && success && !found )
         {
             char operation = line[0];
 

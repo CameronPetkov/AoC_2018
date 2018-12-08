@@ -25,7 +25,7 @@ typedef struct TreeNode
 } TreeNode;
 
 
-TreeNode *createNode( int value );
+void createNode( TreeNode **root, int value );
 bool insert( TreeNode **node, int value );
 bool isEmpty( TreeNode **tree );
 

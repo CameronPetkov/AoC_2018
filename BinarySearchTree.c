@@ -11,22 +11,19 @@
 
 
 
-TreeNode *createNode( int value )
+void createNode( TreeNode **root, int value )
 {
-    TreeNode *root = ( TreeNode * ) malloc( sizeof( TreeNode ) );
-    if ( root == NULL )
+    if ( *root == NULL )
     {
         fprintf( stderr, "Error: Memory not assigned!\n" );
     }
     else
     {
-        root->data = value;
-        root->left = NULL;
-        root->right = NULL;
-        root->size += 1;
+        (*root)->data = value;
+        (*root)->left = NULL;
+        (*root)->right = NULL;
+        (*root)->size += 1;
     }
-
-    return root;
 }
 
 
@@ -37,7 +34,9 @@ bool insert( TreeNode **node, int value )
     bool isFound = false;
     if ( isEmpty( node ) )
     {
-        *node = createNode( value );
+        TreeNode *newNode = ( TreeNode * ) malloc( sizeof( TreeNode ) );
+        createNode( &newNode, value );
+        *node = newNode;
     }
     else
     {
@@ -45,7 +44,7 @@ bool insert( TreeNode **node, int value )
 //        printf( "Parent: %d\n\n", ( *node )->data );
         if ( ( *node )->data == value )
         {
-            printf( "Duplicate found: %d\n", value );
+            printf( "Duplicate found (Q1 Part2): %d\n", value );
             isFound = true;
         }
         else if ( ( *node )->data > value )

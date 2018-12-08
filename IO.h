@@ -1,8 +1,8 @@
 // FILE: IO.h
 // AUTHOR: Cameron Petkov
-// PURPOSE:
-// REFERENCE:
-// LAST MOD: 
+// PURPOSE: N/A
+// REFERENCE: N/A
+// LAST MOD: 8/12/2018
 // COMMENTS: 
 
 #ifndef AOC_2018_IO_H
@@ -13,6 +13,11 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "BinarySearchTree.h"
+
+
+
 
 #define LINE_SIZE 30
 

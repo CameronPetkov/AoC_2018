@@ -1,8 +1,8 @@
 // FILE: IO.c
 // AUTHOR: Cameron Petkov
-// PURPOSE:
-// REFERENCE:
-// LAST MOD: 
+// PURPOSE: Read in file and sum frequency/detect duplicate frequency
+// REFERENCE: N/A
+// LAST MOD: 8/12/2018
 // COMMENTS:
 
 #include "IO.h"
@@ -55,26 +55,33 @@ int sumFreq( FILE *f, bool *success )
     int sum = 0;
 
     char line[LINE_SIZE];
-    while ( ( fgets( line, LINE_SIZE, f ) != NULL ) && success )
+    TreeNode *root = createNode( 0 );
+    bool found = false;
+    while ( !found )
     {
-        char operation = line[0];
+        while ( ( fgets( line, LINE_SIZE, f ) != NULL ) && success )
+        {
+            char operation = line[0];
 
-        char *freqString = line + 1;
-        char *ptr;
-        int freqShift = strtol( freqString, &ptr, 10 );
+            char *freqString = line + 1;
+            char *ptr;
+            int freqShift = strtol( freqString, &ptr, 10 );
 
-        if ( operation == '-' )
-        {
-            sum -= freqShift;
+            if ( operation == '-' )
+            {
+                sum -= freqShift;
+            }
+            else if ( operation == '+' )
+            {
+                sum += freqShift;
+            }
+            else
+            {
+                *success = false;
+            }
+            found = insert( &root, sum );
         }
-        else if ( operation == '+' )
-        {
-            sum += freqShift;
-        }
-        else
-        {
-            *success = false;
-        }
+        rewind( f );
     }
     return sum;
 }

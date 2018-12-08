@@ -10,10 +10,9 @@
 
 
 
-void readFile( char fileName[] )
+void readFile( char fileName[], void (*processType)( FILE *f, bool* ) )
 {
     bool success = true;
-    int sum;
 
     FILE *f = fopen( fileName, "r" );
     if ( f == NULL )
@@ -23,7 +22,7 @@ void readFile( char fileName[] )
     }
     else
     {
-        sumFreq( f, &success );
+        processType( f, &success );
 
         if ( ferror( f ) )
         {
@@ -48,7 +47,7 @@ void readFile( char fileName[] )
 
 
 
-void sumFreq( FILE *f, bool *success )
+void calcFreq( FILE *f, bool *success )
 {
     int sum = 0;
     bool q1print = true;
@@ -82,11 +81,19 @@ void sumFreq( FILE *f, bool *success )
             found = insert( &root, sum );
         }
 
-        if(q1print)
+        if ( q1print )
         {
             printf( "Series sum found (Q1 Part 1): %d\n", sum );
             q1print = false;
         }
         rewind( f );
     }
+}
+
+
+
+
+void calcCheckSum( FILE *f, bool *success )
+{
+    return 0;
 }

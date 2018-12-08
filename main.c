@@ -8,12 +8,17 @@
 
 #include <stdio.h>
 #include "Day1.h"
+#include "Day2.h"
+#include "IO.h"
 
 
 
 
 int main()
 {
-    getDay1Ans();
+    void (*calcType)( FILE *f, bool* ) = &calcFreq;
+    getDay1Ans( calcType );
+    calcType = &calcCheckSum;
+    getDay2Ans( calcType );
     return 0;
 }

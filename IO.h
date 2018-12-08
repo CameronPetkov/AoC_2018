@@ -22,7 +22,9 @@
 #define LINE_SIZE 30
 
 
-void readFile( char fileName[] );
-void sumFreq( FILE *f, bool *success );
+void readFile( char fileName[], void (*processType)( FILE *, bool* ) );
+void calcFreq( FILE *f, bool *success );
+void calcCheckSum( FILE *f, bool *success );
+
 
 #endif

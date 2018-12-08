@@ -13,7 +13,7 @@
 
 
 
-void getDay1Ans()
+void getDay1Ans( void (*calcType)( FILE *, bool * ) )
 {
-    readFile( "input.txt" );
+    readFile( "input.txt", calcType );
 }

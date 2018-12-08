@@ -14,7 +14,6 @@
 
 int main()
 {
-    int ans = getDay1Ans();
-    printf( "Q1 Part1: %d", ans );
+    getDay1Ans();
     return 0;
 }

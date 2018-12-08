@@ -13,8 +13,7 @@
 
 
 
-int getDay1Ans()
+void getDay1Ans()
 {
-    int sum = readFile( "input.txt" );
-    return sum;
+    readFile( "input.txt" );
 }

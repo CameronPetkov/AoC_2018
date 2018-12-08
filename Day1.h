@@ -14,6 +14,6 @@
 
 
 
-int getDay1Ans( void );
+void getDay1Ans( void );
 
 #endif

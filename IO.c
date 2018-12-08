@@ -10,7 +10,7 @@
 
 
 
-int readFile( char fileName[] )
+void readFile( char fileName[] )
 {
     bool success = true;
     int sum;
@@ -23,7 +23,7 @@ int readFile( char fileName[] )
     }
     else
     {
-        sum = sumFreq( f, &success );
+        sumFreq( f, &success );
 
         if ( ferror( f ) )
         {
@@ -43,16 +43,15 @@ int readFile( char fileName[] )
     {
         fprintf( stderr, "Errors present while reading file. \n" );
     }
-
-    return sum;
 }
 
 
 
 
-int sumFreq( FILE *f, bool *success )
+void sumFreq( FILE *f, bool *success )
 {
     int sum = 0;
+    bool q1print = true;
 
     char line[LINE_SIZE];
     TreeNode *root = ( TreeNode * ) malloc( sizeof( TreeNode ) );
@@ -82,7 +81,12 @@ int sumFreq( FILE *f, bool *success )
             }
             found = insert( &root, sum );
         }
+
+        if(q1print)
+        {
+            printf( "Series sum found (Q1 Part 1): %d\n", sum );
+            q1print = false;
+        }
         rewind( f );
     }
-    return sum;
 }

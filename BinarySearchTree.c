@@ -44,7 +44,7 @@ bool insert( TreeNode **node, int value )
 //        printf( "Parent: %d\n\n", ( *node )->data );
         if ( ( *node )->data == value )
         {
-            printf( "Duplicate found (Q1 Part2): %d\n", value );
+            printf( "Duplicate found (Q1 Part 2): %d\n", value );
             isFound = true;
         }
         else if ( ( *node )->data > value )

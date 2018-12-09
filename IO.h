@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE: N/A
 // REFERENCE: N/A
-// LAST MOD: 8/12/2018
+// LAST MOD: 9/12/2018
 // COMMENTS: 
 
 #ifndef AOC_2018_IO_H
@@ -18,12 +18,14 @@
 
 
 
+
 #define LINE_SIZE 30
 
 
-void readFile( char fileName[], void (*processType)( FILE *, bool* ) );
+void readFile( char fileName[], void (*processType)( FILE *, bool * ) );
 void calcFreq( FILE *f, bool *success );
-void calcCheckSum( FILE *f, bool *success );
-
+void getCheckSum( FILE *f, bool *success );
+int getNumOfRepeats( char line[LINE_SIZE], bool *success );
+int compare( char *line );
 
 #endif

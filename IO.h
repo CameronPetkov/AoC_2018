@@ -19,7 +19,7 @@
 
 
 
-#define LINE_SIZE 30
+
 
 
 void readFile( char fileName[], void (*processType)( FILE *, bool * ) );

@@ -8,8 +8,6 @@
 
 #include "Day1.h"
 
-#include <stdio.h>
-
 
 
 

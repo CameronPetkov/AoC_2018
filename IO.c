@@ -5,7 +5,6 @@
 // LAST MOD: 9/12/2018
 // COMMENTS:
 
-#include <memory.h>
 #include "IO.h"
 
 
@@ -36,7 +35,6 @@ void readFile( char fileName[], void (*processType)( FILE *, bool * ) )
         }
 
         fclose( f );
-
     }
 
     if ( !success )

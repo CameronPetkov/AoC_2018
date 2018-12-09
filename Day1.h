@@ -9,9 +9,14 @@
 #ifndef AOC_2018_DAY1_H
 #define AOC_2018_DAY1_H
 
+#include <stdio.h>
+
 #include "IO.h"
 
 
+
+
+#define LINE_SIZE 30
 
 
 void getDay1Ans();

@@ -23,9 +23,5 @@
 
 
 void readFile( char fileName[], void (*processType)( FILE *, bool * ) );
-void calcFreq( FILE *f, bool *success );
-void getCheckSum( FILE *f, bool *success );
-int getNumOfRepeats( char line[LINE_SIZE], bool *success );
-int compare( char *line );
 
 #endif

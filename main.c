@@ -16,9 +16,7 @@
 
 int main()
 {
-    void (*calcType)( FILE *f, bool * ) = &calcFreq;
-    getDay1Ans( calcType );
-    calcType = &calcCheckSum;
-    getDay2Ans( calcType );
+    getDay1Ans();
+    getDay2Ans();
     return 0;
 }

@@ -13,6 +13,8 @@
 
 
 
-void getDay1Ans( void (*calcType)( FILE *, bool * ) );
+
+void getDay1Ans();
+void calcFreq( FILE *f, bool *success );
 
 #endif

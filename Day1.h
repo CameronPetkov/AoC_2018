@@ -13,7 +13,6 @@
 
 
 
-
 void getDay1Ans( void (*calcType)( FILE *, bool * ) );
 
 #endif

@@ -14,5 +14,5 @@
 
 void getDay2Ans( void (*calcType)( FILE *, bool* ) )
 {
-readFile( "input.txt", calcType );
+    readFile( "input.txt", calcType );
 }

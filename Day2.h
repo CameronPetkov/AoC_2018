@@ -13,8 +13,6 @@
 #include "IO.h"
 
 
-
-
 void getDay2Ans( void (*calcType)( FILE *, bool * ) );
 
 #endif //AOC_2018_DAY2_H

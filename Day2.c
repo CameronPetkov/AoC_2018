@@ -14,7 +14,7 @@
 
 void getDay2Ans()
 {
-    void (*calcType)( FILE *f, bool * ) = &getCheckSum;
+    void (*calcType)( FILE *, bool * ) = &getCheckSum;
     readFile( "input2.txt", calcType );
 }
 
@@ -23,11 +23,10 @@ void getDay2Ans()
 
 void getCheckSum( FILE *f, bool *success )
 {
-    char line[LINE_SIZE];
+    char *line = ( char * ) malloc( LINE_SIZE * sizeof( char ) );
     int oneMatch = 0, twoMatch = 0;
     while ( fgets( line, LINE_SIZE, f ) != NULL )
     {
-//        printf( "\n\n%s", line );
         int repeatCode = getNumOfRepeats( line, success );
         switch ( repeatCode )
         {
@@ -46,24 +45,26 @@ void getCheckSum( FILE *f, bool *success )
                 break;
         }
     }
+    free(line);
+    line = NULL;
 
     int checkSum = oneMatch * twoMatch;
 //    printf( "1 match: %d\n", oneMatch );
 //    printf( "3 match: %d\n", twoMatch );
-    printf( "Checksum found (Q2 Part 1): %d", checkSum );
+    printf( "Checksum found (Q2 Part 1): %d\n", checkSum );
 }
 
 
 
 
-int getNumOfRepeats( char line[LINE_SIZE], bool *success )
+int getNumOfRepeats( char line[], bool *success )
 {
     int count = 0;
     bool twoFound = false, threeFound = false;
 
     do
     {
-        int matches = compare( ( line + count ) );
+        int matches = compare( line + count );
 
         if ( matches == 2 )
         {
@@ -76,7 +77,7 @@ int getNumOfRepeats( char line[LINE_SIZE], bool *success )
 
         count++;
     }
-    while ( ( !twoFound || !threeFound ) && ( line[count] != '\n' ) );
+    while ( ( !twoFound || !threeFound ) && ( count < LINE_SIZE ) );
 
     /* Code - 1: 2 repeats
      *        2: 3 repeats
@@ -118,7 +119,7 @@ int compare( char *line )
             }
             ii++;
         }
-        while ( line[ii] != '\n' );
+        while ( ii < LINE_SIZE );
     }
 
     return matches;

@@ -15,6 +15,8 @@
 
 
 
+#define LINE_SIZE 27
+
 void getDay2Ans();
 void getCheckSum( FILE *f, bool *success );
 int getNumOfRepeats( char line[LINE_SIZE], bool *success );

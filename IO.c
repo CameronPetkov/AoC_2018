@@ -88,6 +88,8 @@ void calcFreq( FILE *f, bool *success )
         }
         rewind( f );
     }
+
+    clearTree( &root );
 }
 
 
@@ -95,5 +97,5 @@ void calcFreq( FILE *f, bool *success )
 
 void calcCheckSum( FILE *f, bool *success )
 {
-    return 0;
+    int freq[26];
 }

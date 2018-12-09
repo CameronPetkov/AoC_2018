@@ -19,7 +19,7 @@
 
 void getDay2Ans();
 void getCheckSum( FILE *f, bool *success );
-int getNumOfRepeats( char line[LINE_SIZE], bool *success );
-int compare( char *line );
+int getNumOfRepeats( char line[], bool *success );
+int compare( char *line, int offset );
 
 #endif //AOC_2018_DAY2_H

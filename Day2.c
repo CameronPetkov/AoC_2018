@@ -45,7 +45,7 @@ void getCheckSum( FILE *f, bool *success )
                 break;
         }
     }
-    free(line);
+    free( line );
     line = NULL;
 
     int checkSum = oneMatch * twoMatch;
@@ -64,7 +64,7 @@ int getNumOfRepeats( char line[], bool *success )
 
     do
     {
-        int matches = compare( line + count );
+        int matches = compare( line + count, count );
 
         if ( matches == 2 )
         {
@@ -100,7 +100,7 @@ int getNumOfRepeats( char line[], bool *success )
 
 
 
-int compare( char *line )
+int compare( char *line, int offset )
 {
     short int matches = 1;
     char ch = line[0];
@@ -119,7 +119,7 @@ int compare( char *line )
             }
             ii++;
         }
-        while ( ii < LINE_SIZE );
+        while ( ii < ( LINE_SIZE - offset ) );
     }
 
     return matches;

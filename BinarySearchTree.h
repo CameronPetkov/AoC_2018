@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE: N/A
 // REFERENCE: N/A
-// LAST MOD: 8/12/2018
+// LAST MOD: 9/12/2018
 // COMMENTS: 
 
 #ifndef AOC_2018_BINARYSEARCHTREE_H
@@ -21,12 +21,11 @@ typedef struct TreeNode
     int data;
     struct TreeNode *left;
     struct TreeNode *right;
-    int size;
 } TreeNode;
 
 
 void createNode( TreeNode **root, int value );
 bool insert( TreeNode **node, int value );
-bool isEmpty( TreeNode **tree );
+void clearTree( TreeNode **node );
 
 #endif

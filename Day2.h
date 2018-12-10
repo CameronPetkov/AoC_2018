@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE:
 // REFERENCE:
-// LAST MOD: 8/12/2018
+// LAST MOD: 10/12/2018
 // COMMENTS: 
 
 #ifndef AOC_2018_DAY2_H
@@ -15,11 +15,13 @@
 
 
 
-#define LINE_SIZE 27
 
 void getDay2Ans();
 void getCheckSum( FILE *f, bool *success );
 int getNumOfRepeats( char line[], bool *success );
-int compare( char *line, int offset );
+int compareChar( char *line, int offset );
+void getBoxIDs( char *line );
+int compareLines( char *line, int offset, bool *match );
+int getNumberOfLinesInString( char* string );
 
 #endif //AOC_2018_DAY2_H

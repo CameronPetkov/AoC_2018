@@ -10,11 +10,6 @@
 
 
 
-int getOverlap();
-
-
-
-
 void getDay3Ans()
 {
     void (*calcType)( FILE *, bool * ) = &storeCoordinates;
@@ -27,13 +22,15 @@ void getDay3Ans()
 
 void storeCoordinates( FILE *f, bool *success )
 {
+    //Space for 1000 * 1000 min grid size
     unsigned char *map = ( unsigned char * ) malloc( 1000 * 1000 * sizeof(
             unsigned char ) );
 
+    //Space for 4 coordinates per line + 2 for NULL character
     short int *coordinates = ( short int * ) malloc( 4 * getNumberOfLines
-            ( "input3.txt" ) * sizeof( short int ) + 1 );
+            ( "input3.txt" ) * sizeof( short int ) + 2 );
 
-    coordinates[4 * getNumberOfLines( "input3.txt" ) * sizeof( short int )] =
+    coordinates[4 * getNumberOfLines( "input3.txt" )] =
             '\0';
 
     char line[LINE_SIZE];

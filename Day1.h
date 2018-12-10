@@ -16,9 +16,6 @@
 
 
 
-#define LINE_SIZE 30
-
-
 void getDay1Ans();
 void calcFreq( FILE *f, bool *success );
 

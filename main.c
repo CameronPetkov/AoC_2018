@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "Day1.h"
 #include "Day2.h"
+#include "Day3.h"
 #include "IO.h"
 
 
@@ -16,7 +17,8 @@
 
 int main()
 {
-    getDay1Ans();
-    getDay2Ans();
+    //getDay1Ans();
+    //getDay2Ans();
+    getDay3Ans();
     return 0;
 }

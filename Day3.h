@@ -12,6 +12,7 @@
 
 
 
+
 #define MAP_X_SIZE 1000
 #define MAP_Y_SIZE MAP_X_SIZE
 
@@ -31,8 +32,9 @@ typedef struct
 
 void getDay3Ans();
 void storeCoordinates( FILE *f, bool *success );
-int getOverlap( unsigned char *map, Rect *claims );
-int getPoint1Intersect( Rect *claims, unsigned char *map, int ii, int jj );
-int getPoint2Intersect( Rect *claims, unsigned char *map, int ii, int jj );
+int getOverlap( unsigned char **map, Rect *claims );
+int getPoint1Intersect( Rect *claims, unsigned char **map, int ii, int jj );
+int getPoint2Intersect( Rect *claims, unsigned char **map, int ii, int jj );
+int updateMap( unsigned char **map, int ii, int jj, int height, int width );
 
 #endif //AOC_2018_DAY3_H

@@ -23,13 +23,23 @@ void getDay3Ans()
 void storeCoordinates( FILE *f, bool *success )
 {
     //Space for 1000 * 1000 min grid size
-    unsigned char *map = ( unsigned char * ) malloc(
-            MAP_X_SIZE * MAP_Y_SIZE * sizeof( unsigned char ) );
+    unsigned char **map = ( unsigned char ** ) malloc( MAP_Y_SIZE * sizeof(
+            unsigned char * ) );
+    if ( map != NULL )
+    {
+        for ( int ii = 0; ii < MAP_Y_SIZE; ii++ )
+        {
+            map[ii] = ( unsigned char * ) malloc( MAP_X_SIZE * sizeof( unsigned
+            char ) );
+            for( int jj = 0; jj < MAP_X_SIZE; jj++)
+            {
+                map[ii][jj] = 0;
+            }
+        }
+    }
 
     int numLines = getNumberOfLines( "input3.txt" );
     Rect *claims = ( Rect * ) malloc( numLines * sizeof( Rect ) );
-
-//    claims[numLines] = '\0';
 
     char line[LINE_SIZE];
     int ii = 0;
@@ -53,15 +63,19 @@ void storeCoordinates( FILE *f, bool *success )
         ii++;
     }
 
-    for ( int ii = 0; ii < numLines; ii++ )
+    /*for ( int jj = 0; jj < numLines; jj++ )
     {
-        printf( "Coordinates are: (%d, %d) to (%d, %d). \n", claims[ii].p1.x,
-                claims[ii].p1.y, claims[ii].p2.x, claims[ii].p2.y );
-    }
+        printf( "Coordinates are: (%d, %d) to (%d, %d). \n", claims[jj].p1.x,
+                claims[jj].p1.y, claims[jj].p2.x, claims[jj].p2.y );
+    }*/
 
     int overlapSize = getOverlap( map, claims );
     printf( "Overlap size: %d\n", overlapSize );
 
+    for ( int jj = 0; jj < MAP_Y_SIZE; jj++ )
+    {
+        free( map[jj] );
+    }
     free( map );
     free( claims );
 }
@@ -69,7 +83,7 @@ void storeCoordinates( FILE *f, bool *success )
 
 
 
-int getOverlap( unsigned char *map, Rect *claims )
+int getOverlap( unsigned char **map, Rect *claims )
 {
     int overlap = 0;
     int ii = 0;
@@ -106,9 +120,9 @@ int getOverlap( unsigned char *map, Rect *claims )
 
 
 //down-right
-int getPoint1Intersect( Rect *claims, unsigned char *map, int ii, int jj )
+int getPoint1Intersect( Rect *claims, unsigned char **map, int ii, int jj )
 {
-    int area = 0, width = 0, height = 0;
+    int area = 0, width = 0, height = 0, startX = 0, startY = 0;
 
     if ( claims[ii].p2.y > claims[jj].p1.y )
     {
@@ -127,7 +141,9 @@ int getPoint1Intersect( Rect *claims, unsigned char *map, int ii, int jj )
         width = claims[ii].p2.x - claims[ii].p1.x;
     }
 
-    area = width * height;
+    startX = claims[ii].p1.x;
+    startY = claims[ii].p1.y;
+    area = updateMap( map, startX, startY, height, width );
 
     return area;
 }
@@ -136,28 +152,53 @@ int getPoint1Intersect( Rect *claims, unsigned char *map, int ii, int jj )
 
 
 //up-left
-int getPoint2Intersect( Rect *claims, unsigned char *map, int ii, int jj )
+int getPoint2Intersect( Rect *claims, unsigned char **map, int ii, int jj )
 {
-    int area = 0, width = 0, height = 0;
+    int area = 0, width = 0, height = 0, startX = 0, startY = 0;
 
     if ( claims[ii].p2.y < claims[jj].p1.y )
     {
         height = claims[ii].p2.y - claims[jj].p1.y;
+        startY = claims[jj].p1.y;
     }
     else
     {
         height = claims[ii].p2.y - claims[ii].p1.y;
+        startY = claims[ii].p1.y;
     }
     if ( claims[ii].p2.x < claims[jj].p1.x )
     {
         width = claims[ii].p2.x - claims[jj].p1.x;
+        startX = claims[jj].p1.x;
     }
     else
     {
         width = claims[ii].p2.x - claims[ii].p1.x;
+        startX = claims[ii].p1.x;
     }
 
-    area = width * height;
+    area = updateMap( map, startX, startY, height, width );
+
+    return area;
+}
+
+
+
+
+int updateMap( unsigned char **map, int ii, int jj, int height, int width )
+{
+    int area = 0;
+    for ( int xx = ii; xx < ii + width; xx++ )
+    {
+        for ( int yy = jj; yy < jj + height; yy++ )
+        {
+            if ( map[xx][yy] == 0 )
+            {
+                area++;
+                map[xx][yy] = 1;
+            }
+        }
+    }
 
     return area;
 }

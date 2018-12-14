@@ -60,7 +60,7 @@ void storeCoordinates( FILE *f, bool *success )
     }
 
     int overlapSize = getOverlap( map, claims );
-
+    printf( "Overlap size: %d\n", overlapSize );
 
     free( map );
     free( claims );
@@ -85,12 +85,79 @@ int getOverlap( unsigned char *map, Rect *claims )
                  ( claims[ii].p1.y > claims[jj].p1.y ) &&
                  ( claims[ii].p1.y < claims[jj].p2.y ) )
             {
-                overlap++;
-                printf( "%d\n", overlap );
+                overlap += getPoint1Intersect( claims, map, ii, jj );
+            }
+            else if ( ( claims[ii].p2.x > claims[jj].p1.x ) &&
+                      ( claims[ii].p2.x < claims[jj].p2.x ) &&
+                      ( claims[ii].p2.y > claims[jj].p1.y ) &&
+                      ( claims[ii].p2.y < claims[jj].p2.y ) )
+            {
+                overlap += getPoint2Intersect( claims, map, ii, jj );
             }
             jj--;
         }
         ii++;
+        printf( "%d\n", overlap );
     }
     return overlap;
+}
+
+
+
+
+//down-right
+int getPoint1Intersect( Rect *claims, unsigned char *map, int ii, int jj )
+{
+    int area = 0, width = 0, height = 0;
+
+    if ( claims[ii].p2.y > claims[jj].p1.y )
+    {
+        height = claims[jj].p2.y - claims[ii].p1.y;
+    }
+    else
+    {
+        height = claims[ii].p2.y - claims[ii].p1.y;
+    }
+    if ( claims[ii].p2.x > claims[jj].p1.x )
+    {
+        width = claims[jj].p2.x - claims[ii].p1.x;
+    }
+    else
+    {
+        width = claims[ii].p2.x - claims[ii].p1.x;
+    }
+
+    area = width * height;
+
+    return area;
+}
+
+
+
+
+//up-left
+int getPoint2Intersect( Rect *claims, unsigned char *map, int ii, int jj )
+{
+    int area = 0, width = 0, height = 0;
+
+    if ( claims[ii].p2.y < claims[jj].p1.y )
+    {
+        height = claims[ii].p2.y - claims[jj].p1.y;
+    }
+    else
+    {
+        height = claims[ii].p2.y - claims[ii].p1.y;
+    }
+    if ( claims[ii].p2.x < claims[jj].p1.x )
+    {
+        width = claims[ii].p2.x - claims[jj].p1.x;
+    }
+    else
+    {
+        width = claims[ii].p2.x - claims[ii].p1.x;
+    }
+
+    area = width * height;
+
+    return area;
 }

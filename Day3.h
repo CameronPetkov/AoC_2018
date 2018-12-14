@@ -10,8 +10,27 @@
 
 #include "IO.h"
 
+
+
+#define MAP_X_SIZE 1000
+#define MAP_Y_SIZE MAP_X_SIZE
+
+
+typedef struct
+{
+    short int x;
+    short int y;
+} Point;
+
+
+typedef struct
+{
+    Point p1;
+    Point p2;
+} Rect;
+
 void getDay3Ans();
 void storeCoordinates( FILE *f, bool *success );
-int getOverlap( unsigned char *map, short int *coordinates );
+int getOverlap( unsigned char *map, Rect *claims );
 
 #endif //AOC_2018_DAY3_H

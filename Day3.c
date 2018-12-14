@@ -23,15 +23,13 @@ void getDay3Ans()
 void storeCoordinates( FILE *f, bool *success )
 {
     //Space for 1000 * 1000 min grid size
-    unsigned char *map = ( unsigned char * ) malloc( 1000 * 1000 * sizeof(
-            unsigned char ) );
+    unsigned char *map = ( unsigned char * ) malloc(
+            MAP_X_SIZE * MAP_Y_SIZE * sizeof( unsigned char ) );
 
-    //Space for 4 coordinates per line + 2 for NULL character
-    short int *coordinates = ( short int * ) malloc( 4 * getNumberOfLines
-            ( "input3.txt" ) * sizeof( short int ) + 2 );
+    int numLines = getNumberOfLines( "input3.txt" );
+    Rect *claims = ( Rect * ) malloc( numLines * sizeof( Rect ) );
 
-    coordinates[4 * getNumberOfLines( "input3.txt" )] =
-            '\0';
+//    claims[numLines] = '\0';
 
     char line[LINE_SIZE];
     int ii = 0;
@@ -45,43 +43,54 @@ void storeCoordinates( FILE *f, bool *success )
         x1++;
         y1++;
 
-        printf( "Coordinates are: (%d, %d) to (%d, %d). \n", x1, y1, x2, y2 );
-        coordinates[ii] = x1;
-        coordinates[ii + 1] = y1;
-        coordinates[ii + 2] = x2;
-        coordinates[ii + 3] = y2;
+//        printf( "Coordinates are: (%d, %d) to (%d, %d). \n", x1, y1, x2, y2 );
+
+        claims[ii].p1.x = x1;
+        claims[ii].p1.y = y1;
+        claims[ii].p2.x = x2;
+        claims[ii].p2.y = y2;
+
         ii++;
     }
 
-    int overlapSize = getOverlap( map, coordinates );
+    for ( int ii = 0; ii < numLines; ii++ )
+    {
+        printf( "Coordinates are: (%d, %d) to (%d, %d). \n", claims[ii].p1.x,
+                claims[ii].p1.y, claims[ii].p2.x, claims[ii].p2.y );
+    }
+
+    int overlapSize = getOverlap( map, claims );
 
 
     free( map );
-    free( coordinates );
+    free( claims );
 }
 
 
 
 
-int getOverlap( unsigned char *map, short int *coordinates )
+int getOverlap( unsigned char *map, Rect *claims )
 {
     int overlap = 0;
     int ii = 0;
-    while ( coordinates[ii] != '\0' )
+    int numLines = getNumberOfLines( "input3.txt" );
+    while ( ii < numLines )
     {
         int jj = ii;
-        while ( coordinates[jj] != '\0' )
+        while ( jj >= 0 )
         {
-            if ( ( coordinates[ii] > coordinates[jj] ) &&
-                 ( coordinates[ii + 2] < coordinates[jj + 2] ) &&
-                 ( coordinates[ii + 1] < coordinates[jj + 1] ) &&
-                 ( coordinates[ii + 3] > coordinates[jj + 3] ) )
+
+            if ( ( claims[ii].p1.x > claims[jj].p1.x ) &&
+                 ( claims[ii].p1.x < claims[jj].p2.x ) &&
+                 ( claims[ii].p1.y > claims[jj].p1.y ) &&
+                 ( claims[ii].p1.y < claims[jj].p2.y ) )
             {
-                //overlap += getIntersection();
+                overlap++;
+                printf( "%d\n", overlap );
             }
-            jj += 4;
+            jj--;
         }
-        ii += 4;
+        ii++;
     }
     return overlap;
 }

@@ -28,11 +28,18 @@ typedef struct
 {
     Point p1;
     Point p2;
+    Point p3;
+    Point p4;
 } Rect;
 
 void getDay3Ans();
 void storeCoordinates( FILE *f, bool *success );
 int getOverlap( unsigned char **map, Rect *claims );
+bool anyPointIntersects( Rect *claims, int ii, int jj, Point *p );
+bool point1Intersects( Rect *claims, int ii, int jj );
+bool point2Intersects( Rect *claims, int ii, int jj );
+int getPointIntersect( Rect *claims, unsigned char **map, int ii, int jj,
+                       Point *p );
 int getPoint1Intersect( Rect *claims, unsigned char **map, int ii, int jj );
 int getPoint2Intersect( Rect *claims, unsigned char **map, int ii, int jj );
 int updateMap( unsigned char **map, int ii, int jj, int height, int width );

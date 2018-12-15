@@ -41,10 +41,31 @@ void sortDates( FILE *f, bool *success )
 
     qsort( logs, numLines, sizeof( Log ), &compareByDateTime );
 
+    int index = 0;
     for ( int ii = 0; ii < numLines; ii++ )
     {
         printf( "[%d-%02d-%02d %02d:%02d] %s\n", logs[ii].date.year,
                 logs[ii].date.month, logs[ii].date.day, logs[ii].time.hour,
                 logs[ii].time.minute, logs[ii].info );
+        if ( *logs[ii].info == 'G' )
+        {
+            sscanf( logs[ii].info, "Guard #%d %*50[^\n]", &index );
+        }
+        else
+        {
+            int shiftSleep = 0;
+            while ( *logs[ii].info == 'f' )
+            {
+                int startTime = logs[ii].time.minute;
+                ii++;
+                int endTime = logs[ii].time.minute;
+                int duration = endTime - startTime;
+                shiftSleep += duration;
+                printf( "Guard slept for %d minutes.\n", duration );
+                ii++;
+            }
+            printf( "Guard slept for a total of %d minutes.\n", shiftSleep );
+            //addGuardSleep( index, shiftSleep );
+        }
     }
 }

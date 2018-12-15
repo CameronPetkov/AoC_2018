@@ -52,12 +52,21 @@ void storeCoordinates( FILE *f, bool *success )
         claims[ii].p1.y = y1;
         claims[ii].width = width;
         claims[ii].height = height;
-
 //        printf( "Coordinates are: (%d, %d).\n", x1, y1 );
     }
 
-    int overlapSize = makeMap( map, claims, numLines );
-    printf( "Overlap size (Q3 Part 1): %d\n", overlapSize );
+    int area = findOverlapArea( map, claims, numLines );
+    printf( "Overlap size (Q3 Part 1): %d\n", area );
+
+    int uniqueID = findUniqueClaims( map, claims, numLines );
+    if ( uniqueID == -1 )
+    {
+        printf( "No unique claims (Q3 Part 2)!\n" );
+    }
+    else
+    {
+        printf( "Unique claim is at (Q3 Part 2): ID #%d\n", uniqueID );
+    }
 
     for ( int jj = 0; jj < MAP_Y_SIZE; jj++ )
     {
@@ -70,10 +79,9 @@ void storeCoordinates( FILE *f, bool *success )
 
 
 
-int makeMap( unsigned char **map, Rect *claims, int claimsSize )
+int findOverlapArea( unsigned char **map, Rect *claims, int claimsSize )
 {
     int area = 0;
-
     for ( int ii = 0; ii < claimsSize; ii++ )
     {
         int jjLimit = claims[ii].p1.y + claims[ii].height;
@@ -82,7 +90,6 @@ int makeMap( unsigned char **map, Rect *claims, int claimsSize )
             int kkLimit = claims[ii].p1.x + claims[ii].width;
             for ( int kk = claims[ii].p1.x; kk < kkLimit; kk++ )
             {
-//                printf("(%d, %d)\n", kk, jj);
                 if ( map[jj][kk] == 0 )
                 {
                     map[jj][kk] = 1;
@@ -99,6 +106,35 @@ int makeMap( unsigned char **map, Rect *claims, int claimsSize )
             }
         }
     }
-
     return area;
+}
+
+
+
+
+int findUniqueClaims( unsigned char **map, Rect *claims, int claimsSize )
+{
+    int uniqueClaim = -1;
+    for ( int ii = 0; ii < claimsSize; ii++ )
+    {
+        bool uniqueClaims = true;
+        int jjLimit = claims[ii].p1.y + claims[ii].height;
+        for ( int jj = claims[ii].p1.y; jj < jjLimit; jj++ )
+        {
+            int kkLimit = claims[ii].p1.x + claims[ii].width;
+            for ( int kk = claims[ii].p1.x; kk < kkLimit; kk++ )
+            {
+                if ( map[jj][kk] > 1 )
+                {
+                    uniqueClaims = false;
+                }
+            }
+        }
+        if ( uniqueClaims )
+        {
+            uniqueClaim = ii + 1; //ID is 1-based, while array is 0-based, so +1
+        }
+    }
+
+    return uniqueClaim;
 }

@@ -33,6 +33,7 @@ typedef struct
 
 void getDay3Ans();
 void storeCoordinates( FILE *f, bool *success );
-void makeMap( unsigned char **map, Rect *claims, int claimsSize );
+int findOverlapArea( unsigned char **map, Rect *claims, int claimsSize );
+int findUniqueClaims( unsigned char **map, Rect *claims, int claimsSize );
 
 #endif //AOC_2018_DAY3_H

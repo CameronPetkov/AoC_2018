@@ -1,8 +1,8 @@
 // FILE: Day3.c
 // AUTHOR: Cameron Petkov
-// PURPOSE:
+// PURPOSE: Solve day 3 challenges
 // REFERENCE:
-// LAST MOD: 10/12/2018
+// LAST MOD: 15/12/2018
 // COMMENTS: 
 
 #include "Day3.h"
@@ -77,9 +77,9 @@ int makeMap( unsigned char **map, Rect *claims, int claimsSize )
     for ( int ii = 0; ii < claimsSize; ii++ )
     {
         int jjLimit = claims[ii].p1.y + claims[ii].height;
-        int kkLimit = claims[ii].p1.x + claims[ii].width;
         for ( int jj = claims[ii].p1.y; jj < jjLimit; jj++ )
         {
+            int kkLimit = claims[ii].p1.x + claims[ii].width;
             for ( int kk = claims[ii].p1.x; kk < kkLimit; kk++ )
             {
 //                printf("(%d, %d)\n", kk, jj);

@@ -1,8 +1,8 @@
 // FILE: Day1.c
 // AUTHOR: Cameron Petkov
-// PURPOSE:
+// PURPOSE: Solve day 1 challenges
 // REFERENCE:
-// LAST MOD:
+// LAST MOD: 8/12/2018
 // COMMENTS:
 
 

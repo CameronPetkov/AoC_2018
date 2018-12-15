@@ -1,8 +1,8 @@
 // FILE: Day3.h
 // AUTHOR: Cameron Petkov
-// PURPOSE:
+// PURPOSE: N/A
 // REFERENCE:
-// LAST MOD: 10/12/2018
+// LAST MOD: 15/12/2018
 // COMMENTS: 
 
 #ifndef AOC_2018_DAY3_H

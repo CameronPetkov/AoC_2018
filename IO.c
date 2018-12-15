@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE: Allow easy file operations
 // REFERENCE: N/A
-// LAST MOD: 10/12/2018
+// LAST MOD: 15/12/2018
 // COMMENTS:
 
 #include "IO.h"
@@ -95,6 +95,8 @@ int getNumberOfLines( char fileName[] )
                 lines++;
             }
         }
+        fclose( f );
     }
+    lines++;
     return lines;
 }

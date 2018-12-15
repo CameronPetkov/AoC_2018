@@ -1,8 +1,8 @@
 // FILE: Day2.c
 // AUTHOR: Cameron Petkov
-// PURPOSE:
+// PURPOSE: Solve day 2 challenges
 // REFERENCE:
-// LAST MOD: 10/12/2018
+// LAST MOD: 15/12/2018
 // COMMENTS: 
 
 
@@ -160,6 +160,7 @@ void getBoxIDs( char *line )
         ii++;
     }
     while ( line[numLines * LINE_SIZE + ii] != '\n' );
+    printf("\n");
 }
 
 

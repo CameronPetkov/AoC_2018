@@ -33,6 +33,6 @@ typedef struct
 
 void getDay3Ans();
 void storeCoordinates( FILE *f, bool *success );
-int makeMap( unsigned char **map, Rect *claims, int claimsSize );
+void makeMap( unsigned char **map, Rect *claims, int claimsSize );
 
 #endif //AOC_2018_DAY3_H

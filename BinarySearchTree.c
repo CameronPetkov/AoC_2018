@@ -28,7 +28,7 @@ void createNode( TreeNode **root, int value )
 
 
 
-bool insert( TreeNode **node, int value )
+bool insertBST( TreeNode **node, int value )
 {
     bool isFound = false;
     if ( *node == NULL )
@@ -48,11 +48,11 @@ bool insert( TreeNode **node, int value )
         }
         else if ( ( *node )->data > value )
         {
-            isFound = insert( &( *node )->left, value );
+            isFound = insertBST( &( *node )->left, value );
         }
         else if ( ( *node )->data < value )
         {
-            isFound = insert( &( *node )->right, value );
+            isFound = insertBST( &( *node )->right, value );
         }
     }
 

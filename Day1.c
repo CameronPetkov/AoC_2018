@@ -51,7 +51,7 @@ void calcFreq( FILE *f, bool *success )
             {
                 *success = false;
             }
-            found = insert( &root, sum );
+            found = insertBST( &root, sum );
         }
 
         if ( q1print )

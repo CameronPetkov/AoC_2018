@@ -124,12 +124,12 @@ void incrementValue( HashTable *table, int key, int data )
     DataItem *item = search( table, key );
     if ( item == NULL )
     {
-        printf( "New guard!\n" );
+//        printf( "New guard!\n" );
         insertHT( table, key, data );
     }
     else
     {
-        printf( "Old guard!\n" );
+//        printf( "Old guard!\n" );
         item->data += data;
     }
 }
@@ -156,4 +156,26 @@ void display( HashTable *table )
             printf( "Index %d: Empty slot!\n", ii );
         }
     }
+}
+
+
+int getMostCommonKey( HashTable *table )
+{
+    int commonKey = 0, maxValue = 0;
+    for ( int ii = 0; ii < table->size; ii++ )
+    {
+        if ( table->indexes[ii]->length != 0 )
+        {
+            for ( int jj = 0; jj < table->indexes[ii]->length; jj++ )
+            {
+                DataItem *item = ( DataItem * ) get( table->indexes[ii], jj );
+                if( item->data > maxValue )
+                {
+                    commonKey = item->key;
+                    maxValue = item->data;
+                }
+            }
+        }
+    }
+    return commonKey;
 }

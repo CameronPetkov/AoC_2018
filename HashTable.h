@@ -20,6 +20,7 @@
 
 
 
+
 #define PRIME 0x01000193
 
 #define TABLE_MAX_PF 0.65
@@ -48,5 +49,6 @@ DataItem *search( HashTable *table, int key );
 int hashCode( int key );
 void incrementValue( HashTable *table, int key, int data );
 void display( HashTable *table );
+int getMostCommonKey( HashTable *table );
 
 #endif //AOC_2018_HASHTABLE_H

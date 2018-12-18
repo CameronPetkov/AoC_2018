@@ -8,10 +8,16 @@
 #ifndef AOC_2018_DAY4_H
 #define AOC_2018_DAY4_H
 
+#include <string.h>
+
 #include "IO.h"
 #include "Comparison.h"
-#include "string.h"
+#include "HashTable.h"
 
+
+
+
+#define TABLE_SIZE 100
 
 
 typedef struct

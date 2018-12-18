@@ -42,6 +42,8 @@ void sortDates( FILE *f, bool *success )
     qsort( logs, numLines, sizeof( Log ), &compareByDateTime );
 
     int index = 0;
+    HashTable *ht = createHashTable( TABLE_SIZE );
+    int startTime = 0, endTime = 0, shiftSleep = 0;
     for ( int ii = 0; ii < numLines; ii++ )
     {
         printf( "[%d-%02d-%02d %02d:%02d] %s\n", logs[ii].date.year,
@@ -50,22 +52,28 @@ void sortDates( FILE *f, bool *success )
         if ( *logs[ii].info == 'G' )
         {
             sscanf( logs[ii].info, "Guard #%d %*50[^\n]", &index );
+            shiftSleep = 0;
         }
-        else
+        else if ( *logs[ii].info == 'f' )
         {
-            int shiftSleep = 0;
-            while ( *logs[ii].info == 'f' )
+            startTime = logs[ii].time.minute;
+        }
+        else if ( *logs[ii].info == 'w' )
+        {
+            endTime = logs[ii].time.minute;
+            int duration = endTime - startTime;
+            shiftSleep += duration;
+            printf( "Guard slept for %d minutes.\n", duration );
+
+            if ( ii + 1 < numLines && *logs[ii + 1].info == 'G' )
             {
-                int startTime = logs[ii].time.minute;
-                ii++;
-                int endTime = logs[ii].time.minute;
-                int duration = endTime - startTime;
-                shiftSleep += duration;
-                printf( "Guard slept for %d minutes.\n", duration );
-                ii++;
+                printf( "Guard slept for %d minutes on shift.\n", shiftSleep );
+                incrementValue( ht, index, shiftSleep );
             }
-            printf( "Guard slept for a total of %d minutes.\n", shiftSleep );
-            //addGuardSleep( index, shiftSleep );
         }
     }
+
+    display( ht );
+    free( logs );
+    destroyHashTable( ht );
 }

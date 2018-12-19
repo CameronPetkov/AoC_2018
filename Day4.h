@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE:
 // REFERENCE:
-// LAST MOD: 15/12/2018
+// LAST MOD: 19/12/2018
 // COMMENTS: 
 
 #ifndef AOC_2018_DAY4_H
@@ -43,5 +43,8 @@ typedef struct
 
 void getDay4Ans();
 void sortDates( FILE *f, bool *success );
+int getMostSleepyGuard( Log *logs, int numLines );
+int getMostSleptMinute( int id, Log *logs, int numLines );
+int getMaxValue( const int *mostCommonMinute );
 
 #endif //AOC_2018_DAY4_H

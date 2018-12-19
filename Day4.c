@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE:
 // REFERENCE:
-// LAST MOD: 15/12/2018
+// LAST MOD: 19/12/2018
 // COMMENTS: 
 
 #include "Day4.h"
@@ -41,14 +41,24 @@ void sortDates( FILE *f, bool *success )
 
     qsort( logs, numLines, sizeof( Log ), &compareByDateTime );
 
-    int index = 0;
+    int id = getMostSleepyGuard( logs, numLines );
+    printf( "Most likely guard to fall asleep is ID #%d\n", id );
+
+    int pos = getMostSleptMinute( id, logs, numLines );
+    printf( "Most common minute slept is %d", pos );
+
+    free( logs );
+}
+
+
+
+
+int getMostSleepyGuard( Log *logs, int numLines )
+{
+    int index = 0, startTime = 0, endTime = 0, shiftSleep = 0;
     HashTable *ht = createHashTable( TABLE_SIZE );
-    int startTime = 0, endTime = 0, shiftSleep = 0;
     for ( int ii = 0; ii < numLines; ii++ )
     {
-//        printf( "[%d-%02d-%02d %02d:%02d] %s\n", logs[ii].date.year,
-//                logs[ii].date.month, logs[ii].date.day, logs[ii].time.hour,
-//                logs[ii].time.minute, logs[ii].info );
         if ( *logs[ii].info == 'G' )
         {
             sscanf( logs[ii].info, "Guard #%d %*50[^\n]", &index );
@@ -73,13 +83,21 @@ void sortDates( FILE *f, bool *success )
             }
         }
     }
-
     int id = getMostCommonKey( ht );
-    printf( "Most likely guard to fall asleep is ID #%d\n", id );
     destroyHashTable( ht );
 
+    return id;
+}
+
+
+
+
+int getMostSleptMinute( int id, Log *logs, int numLines )
+{
     bool valid = false;
     int mostCommonMinute[60];
+    memset( mostCommonMinute, 0, 60 * sizeof( int ) );
+    int startTime = 0, endTime = 0, index = 0;
     for ( int ii = 0; ii < numLines; ii++ )
     {
         if ( *logs[ii].info == 'G' )
@@ -103,15 +121,23 @@ void sortDates( FILE *f, bool *success )
             else if ( *logs[ii].info == 'w' )
             {
                 endTime = logs[ii].time.minute;
-                for ( int ii = startTime; ii < endTime; ii++ )
+                for ( int jj = startTime; jj < endTime; jj++ )
                 {
-                    mostCommonMinute[ii] += 1;
+                    mostCommonMinute[jj] += 1;
                 }
             }
         }
     }
+    int mostSleptMinute = getMaxValue( mostCommonMinute );
+    return mostSleptMinute;
+}
 
-    int largest = 0, pos = 0;
+
+
+
+int getMaxValue( const int *mostCommonMinute )
+{
+    int largest = -1, pos = -1;
     for ( int ii = 0; ii < 60; ii++ )
     {
         if ( mostCommonMinute[ii] > largest )
@@ -120,8 +146,5 @@ void sortDates( FILE *f, bool *success )
             pos = ii;
         }
     }
-
-    printf( "Most common minute slept is %d", pos );
-
-    free( logs );
+    return pos;
 }

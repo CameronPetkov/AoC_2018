@@ -117,12 +117,10 @@ void incrementValue( HashTable *table, char key[], int data )
     DataItem *item = search( table, key );
     if ( item == NULL )
     {
-//        printf( "New guard!\n" );
         insertHT( table, key, data );
     }
     else
     {
-//        printf( "Old guard!\n" );
         item->data += data;
     }
 }
@@ -156,7 +154,8 @@ void display( HashTable *table )
 
 char *getMostCommonKey( HashTable *table )
 {
-    int key = 0, maxValue = 0;
+    char *key;
+    int maxValue = 0;
     for ( int ii = 0; ii < table->size; ii++ )
     {
         if ( table->indexes[ii]->length != 0 )

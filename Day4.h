@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE:
 // REFERENCE:
-// LAST MOD: 19/12/2018
+// LAST MOD: 02/01/2019
 // COMMENTS: 
 
 #ifndef AOC_2018_DAY4_H
@@ -46,5 +46,7 @@ void sortDates( FILE *f, bool *success );
 int getMostSleepyGuard( Log *logs, int numLines );
 int getMostSleptMinute( int id, Log *logs, int numLines );
 int getMaxValue( const int *mostCommonMinute );
+int populateGuardHT( struct HashTable *ht, int size, Log *logs, int numLines );
+int getMostSleepyMethod2( Log *logs, int numLines );
 
 #endif //AOC_2018_DAY4_H

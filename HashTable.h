@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE:
 // REFERENCE:
-// LAST MOD: 18/12/2018
+// LAST MOD: 02/01/2019
 // COMMENTS: 
 
 #ifndef AOC_2018_HASHTABLE_H
@@ -22,13 +22,14 @@
 
 
 #define PRIME 0x01000193
+#define SEED 0x811C9DC5
 
 #define TABLE_MAX_PF 0.65
 
 
 typedef struct DataItem
 {
-    int key;
+    char *key;
     int data;
 } DataItem;
 
@@ -39,16 +40,14 @@ typedef struct HashTable
     LinkedList **indexes;
 } HashTable;
 
-//struct LinkedList *hashArray[TABLE_SIZE];
-
 
 HashTable *createHashTable( int size );
 void destroyHashTable( HashTable *table );
-void insertHT( HashTable *table, int key, int data );
-DataItem *search( HashTable *table, int key );
-int hashCode( int key );
-void incrementValue( HashTable *table, int key, int data );
+void insertHT( HashTable *table, char key[], int data );
+DataItem *search( HashTable *table, char key[] );
+int hashCode( char key[] );
+void incrementValue( HashTable *table, char key[], int data );
 void display( HashTable *table );
-int getMostCommonKey( HashTable *table );
+char *getMostCommonKey( HashTable *table );
 
 #endif //AOC_2018_HASHTABLE_H

@@ -2,7 +2,7 @@
 // AUTHOR: Cameron Petkov
 // PURPOSE:
 // REFERENCE:
-// LAST MOD: 18/12/2018
+// LAST MOD: 02/01/2019
 // COMMENTS: 
 
 #include "HashTable.h"
@@ -43,7 +43,7 @@ void destroyHashTable( HashTable *table )
 
 
 
-void insertHT( HashTable *table, int key, int data )
+void insertHT( HashTable *table, char key[], int data )
 {
     DataItem *item = ( DataItem * ) malloc( sizeof( DataItem ) );
     item->key = key;
@@ -64,7 +64,7 @@ void insertHT( HashTable *table, int key, int data )
 
 
 
-DataItem *search( HashTable *table, int key )
+DataItem *search( HashTable *table, char key[] )
 {
     DataItem *item = NULL;
     int index = hashCode( key );
@@ -78,7 +78,7 @@ DataItem *search( HashTable *table, int key )
         for ( int ii = 0; ii < table->indexes[index]->length; ii++ )
         {
             DataItem *tempItem = get( table->indexes[index], ii );
-            if ( tempItem->key == key )
+            if ( strncmp( tempItem->key, key, strlen( key ) ) == 0 )
             {
                 item = tempItem;
             }
@@ -91,21 +91,14 @@ DataItem *search( HashTable *table, int key )
 
 
 //FNV-1a
-int hashCode( int key )
+int hashCode( char key[] )
 {
-    const uint32_t Seed = 0x811C9DC5; // 2166136261
+    uint32_t hash = SEED;
 
-    uint32_t hash = 0;
-    int length = snprintf( NULL, 0, "%d", key );
-    char *str = ( char * ) malloc( length + 1 );
-    snprintf( str, length + 1, "%d", key );
-
-    for ( int ii = 0; ii < length; ii++ )
+    for ( int ii = 0; ii < strlen( key ); ii++ )
     {
-
-        hash = ( hash ^ str[ii] ) * PRIME;
+        hash = ( hash ^ key[ii] ) * PRIME;
     }
-    free( str );
 
     int index = ( int ) ( hash % TABLE_SIZE );
     if ( index < 0 )
@@ -119,7 +112,7 @@ int hashCode( int key )
 
 
 
-void incrementValue( HashTable *table, int key, int data )
+void incrementValue( HashTable *table, char key[], int data )
 {
     DataItem *item = search( table, key );
     if ( item == NULL )
@@ -147,7 +140,7 @@ void display( HashTable *table )
             for ( int jj = 0; jj < table->indexes[ii]->length; jj++ )
             {
                 DataItem *item = ( DataItem * ) get( table->indexes[ii], jj );
-                printf( "Key/ID: %d, Value: %d       ", item->key, item->data );
+                printf( "Key/ID: %s, Value: %d       ", item->key, item->data );
             }
             printf( "\n" );
         }
@@ -159,9 +152,11 @@ void display( HashTable *table )
 }
 
 
-int getMostCommonKey( HashTable *table )
+
+
+char *getMostCommonKey( HashTable *table )
 {
-    int commonKey = 0, maxValue = 0;
+    int key = 0, maxValue = 0;
     for ( int ii = 0; ii < table->size; ii++ )
     {
         if ( table->indexes[ii]->length != 0 )
@@ -169,13 +164,13 @@ int getMostCommonKey( HashTable *table )
             for ( int jj = 0; jj < table->indexes[ii]->length; jj++ )
             {
                 DataItem *item = ( DataItem * ) get( table->indexes[ii], jj );
-                if( item->data > maxValue )
+                if ( item->data > maxValue )
                 {
-                    commonKey = item->key;
+                    key = item->key;
                     maxValue = item->data;
                 }
             }
         }
     }
-    return commonKey;
+    return key;
 }
